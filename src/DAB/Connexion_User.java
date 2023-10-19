@@ -107,6 +107,14 @@ public class Connexion_User extends JFrame {
 		contentPane.add(btnRetour);
 		
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PageOperation opera = new PageOperation();
+				opera.show();
+				dispose();
+			}
+		});
 		btnConnexion.setBounds(166, 364, 119, 31);
 		contentPane.add(btnConnexion);
 		

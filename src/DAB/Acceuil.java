@@ -103,7 +103,6 @@ public class Acceuil extends JFrame {
 		});
 		btn_seconnecter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btn_seconnecter.setBounds(250, 254, 128, 31);
-		btn_seconnecter.setFocusable(rootPaneCheckingEnabled);
 		contentPane.add(btn_seconnecter);
 	}
 }
