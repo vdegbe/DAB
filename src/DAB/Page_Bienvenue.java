@@ -2,6 +2,7 @@ package DAB;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -38,8 +39,10 @@ public class Page_Bienvenue extends JFrame {
 	 * Create the frame.
 	 */
 	public Page_Bienvenue() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Ven\\Downloads\\IUT-.png"));
 		setTitle("Bienvenue");
+		setResizable(false);
+		ImageIcon image = new ImageIcon("IUT.png");
+		this.setIconImage(image.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 200, 779, 517);
 		contentPane = new JPanel();

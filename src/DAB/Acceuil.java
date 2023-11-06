@@ -13,10 +13,13 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Acceuil extends JFrame {
+public class Acceuil extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,6 +46,10 @@ public class Acceuil extends JFrame {
 	public Acceuil() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 489);
+		setTitle("Acceuil ");
+		setResizable(false);
+		ImageIcon image = new ImageIcon("IUT.png");
+		this.setIconImage(image.getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,5 +111,11 @@ public class Acceuil extends JFrame {
 		btn_seconnecter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btn_seconnecter.setBounds(250, 254, 128, 31);
 		contentPane.add(btn_seconnecter);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

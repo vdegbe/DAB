@@ -7,12 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PageOperation extends JFrame {
 
@@ -41,6 +45,10 @@ public class PageOperation extends JFrame {
 	public PageOperation() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 767, 474);
+		setTitle("Page Opération");
+		setResizable(false);
+		ImageIcon image = new ImageIcon("IUT.png");
+		this.setIconImage(image.getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,43 +70,46 @@ public class PageOperation extends JFrame {
 		txtdab.setBounds(10, 11, 152, 43);
 		contentPane.add(txtdab);
 		
-		JLabel icone = new JLabel("");
-		icone.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__jeu-icones-vectorielles-utilisateur-bleu_454641-450_normal-removebg-preview.png"));
-		icone.setBounds(458, 11, 102, 102);
-		contentPane.add(icone);
-		
-		JLabel txt_Nom = new JLabel("Nom :");
-		txt_Nom.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txt_Nom.setBounds(570, 11, 52, 26);
-		contentPane.add(txt_Nom);
-		
-		JLabel txt_Nom_1 = new JLabel("Prénom :");
-		txt_Nom_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txt_Nom_1.setBounds(570, 64, 80, 26);
-		contentPane.add(txt_Nom_1);
-		
-		JLabel txt_affiche_Nom = new JLabel("");
-		txt_affiche_Nom.setBounds(570, 39, 171, 26);
-		contentPane.add(txt_affiche_Nom);
-		
-		JLabel txt_affiche_Prenom = new JLabel("");
-		txt_affiche_Prenom.setBounds(570, 91, 171, 32);
-		contentPane.add(txt_affiche_Prenom);
-		
 		JLabel icone_depot = new JLabel("");
-		icone_depot.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__illustration-icones-soutien-don_53876-6152_normal-removebg-preview.png"));
+		icone_depot.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Depot depot = new Depot();
+				depot.show();
+				dispose();
+			}
+		});
 		icone_depot.setBounds(38, 142, 102, 89);
+		icone_depot.setIcon(new ImageIcon("depot.png"));
 		contentPane.add(icone_depot);
 		
 		JLabel icone_retrait = new JLabel("");
-		icone_retrait.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__illustration-icones-soutien-don_53876-6146_normal-removebg-preview.png"));
+		icone_retrait.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CodeP rait = new CodeP();
+				JOptionPane.showMessageDialog(contentPane,"Veuillez insérer votre Carte");
+				rait.show();
+				dispose();
+				}
+				
+			});
 		icone_retrait.setBounds(601, 134, 102, 102);
+		icone_retrait.setIcon(new ImageIcon("retrait.png"));
 		contentPane.add(icone_retrait);
 		
 		JLabel icone_solde = new JLabel("");
+		icone_solde.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Solde solde = new Solde();
+				solde.show();
+				dispose();
+			}
+		});
 		icone_solde.setHorizontalAlignment(SwingConstants.CENTER);
-		icone_solde.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__illustration-du-concept-financier_53876-5862_normal-removebg-preview.png"));
 		icone_solde.setBounds(10, 260, 731, 89);
+		icone_solde.setIcon(new ImageIcon("solde.png"));
 		contentPane.add(icone_solde);
 		
 		JLabel txt_depot = new JLabel("Faire un Dépot");
@@ -125,10 +136,19 @@ public class PageOperation extends JFrame {
 		btndeconnecxion.setFont(new Font("Tahoma", Font.ITALIC, 12));
 		btndeconnecxion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Connexion_User conuser = new Connexion_User();
+				conuser.show();
+				dispose();
 			}
 		});
 		btndeconnecxion.setBounds(624, 401, 117, 23);
 		contentPane.add(btndeconnecxion);
+		
+		JLabel lblNewLabel = new JLabel("Sélectionner l'opération que vous souhaitez réaliser");
+		lblNewLabel.setFont(new Font("MV Boli", Font.PLAIN, 18));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 91, 731, 40);
+		contentPane.add(lblNewLabel);
 	}
 
 }
