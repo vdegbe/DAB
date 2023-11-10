@@ -45,7 +45,7 @@ public class Acceuil extends JFrame implements ActionListener{
 	 */
 	public Acceuil() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 637, 489);
+		setBounds(350, 100, 637, 489);
 		setTitle("Acceuil ");
 		setResizable(false);
 		ImageIcon image = new ImageIcon("IUT.png");
@@ -73,7 +73,7 @@ public class Acceuil extends JFrame implements ActionListener{
 		
 		JLabel txt2 = new JLabel("");
 		txt2.setHorizontalAlignment(SwingConstants.CENTER);
-		txt2.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__jeu-icones-vectorielles-utilisateur-bleu_454641-450_normal-removebg-preview.png"));
+		txt2.setIcon(new ImageIcon("user.png"));
 		txt2.setBounds(10, 113, 601, 157);
 		contentPane.add(txt2);
 		
@@ -88,7 +88,7 @@ public class Acceuil extends JFrame implements ActionListener{
 				
 			}
 		});
-		txt3.setIcon(new ImageIcon("C:\\Users\\Ven\\Downloads\\_fpdl.in__illustration-du-concept-service-client_53876-5883_normal-removebg-preview-removebg-preview.png"));
+		txt3.setIcon(new ImageIcon("admin.png"));
 		txt3.setBounds(532, 360, 79, 79);
 		contentPane.add(txt3);
 		
@@ -110,6 +110,7 @@ public class Acceuil extends JFrame implements ActionListener{
 		});
 		btn_seconnecter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btn_seconnecter.setBounds(250, 254, 128, 31);
+		btn_seconnecter.setFocusable(false);
 		contentPane.add(btn_seconnecter);
 	}
 

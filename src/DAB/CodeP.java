@@ -5,16 +5,43 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class CodeP extends JFrame {
+public class CodeP extends JFrame implements ActionListener{
+	
+	Connection con;
+	PreparedStatement pst;
+	ResultSet rs;
+	
+	public void connect() throws SQLException{
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/dab-uspn", "root", "");
+			System.out.println("Connection Etablie");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -41,7 +68,11 @@ public class CodeP extends JFrame {
 	 */
 	public CodeP() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 509, 300);
+		setBounds(400, 200, 509, 300);
+		setTitle("Code Pin Authentification ");
+		setResizable(false);
+		ImageIcon image = new ImageIcon("IUT.png");
+		this.setIconImage(image.getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,6 +112,11 @@ public class CodeP extends JFrame {
 		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordField.setBounds(115, 135, 277, 43);
 		contentPane.add(passwordField);
+		JLabel lbl_pass = new JLabel("");
+		lbl_pass.setForeground(Color.RED);
+		lbl_pass.setFont(new Font("MV Boli", Font.PLAIN, 11));
+		lbl_pass.setBounds(115, 172, 277, 26);
+		contentPane.add(lbl_pass);
 		
 		JButton btn_annuler = new JButton("ANNULER");
 		btn_annuler.addActionListener(new ActionListener() {
@@ -96,13 +132,51 @@ public class CodeP extends JFrame {
 		JButton btn_Valider = new JButton("VALIDER");
 		btn_Valider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Retrait retrait = new Retrait();
-				retrait.show();
-				dispose();
+				
+				if( passwordField.getText().trim().isEmpty()) {
+					lbl_pass.setText("Veuillez indiquer le Code Pin");
+				}else if(passwordField.getText().trim().isEmpty()) {
+					lbl_pass.setText("Veuillez indiquer le Code Pin");
+				}else {
+					
+					try {
+						connect();
+						String sql = "Select * from client where codepin_client=?";
+						pst = (PreparedStatement) con.prepareStatement(sql);
+						pst.setString(1, passwordField.getText());
+						rs = pst.executeQuery();
+						
+						if(rs.next()) {
+							JOptionPane.showMessageDialog(null, "Code Pin correct ");
+							Retrait retrait = new Retrait();
+							retrait.setVisible(true);
+							setVisible(false);
+							//JOptionPane.showMessageDialog(null, "Bienvenue ");
+						}else {
+							JOptionPane.showMessageDialog(null, "Code Pin Incorrect");
+							passwordField.setText(" ");
+						}	
+						con.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			
 			}
 		});
 		btn_Valider.setBounds(275, 209, 117, 34);
 		contentPane.add(btn_Valider);
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
+
+//degboe\\

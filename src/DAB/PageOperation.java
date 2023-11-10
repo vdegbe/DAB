@@ -44,7 +44,7 @@ public class PageOperation extends JFrame {
 	 */
 	public PageOperation() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 767, 474);
+		setBounds(300, 100, 767, 474);
 		setTitle("Page Opération");
 		setResizable(false);
 		ImageIcon image = new ImageIcon("IUT.png");
@@ -102,6 +102,8 @@ public class PageOperation extends JFrame {
 		icone_solde.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				
 				Solde solde = new Solde();
 				solde.show();
 				dispose();
@@ -142,6 +144,7 @@ public class PageOperation extends JFrame {
 			}
 		});
 		btndeconnecxion.setBounds(624, 401, 117, 23);
+		btndeconnecxion.setFocusable(false);
 		contentPane.add(btndeconnecxion);
 		
 		JLabel lblNewLabel = new JLabel("Sélectionner l'opération que vous souhaitez réaliser");

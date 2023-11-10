@@ -44,7 +44,7 @@ public class Page_Bienvenue extends JFrame {
 		ImageIcon image = new ImageIcon("IUT.png");
 		this.setIconImage(image.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(450, 200, 779, 517);
+		setBounds(300, 100, 779, 517);
 		contentPane = new JPanel();
 		contentPane.addMouseListener(new MouseAdapter() {
 			@Override

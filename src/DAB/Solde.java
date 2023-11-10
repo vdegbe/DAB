@@ -5,18 +5,49 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
-public class Solde extends JFrame {
+public class Solde extends JFrame implements ActionListener{
+	
+	Connection con;
+	PreparedStatement selpst;
+	//PreparedStatement updpst;
+	ResultSet rs;
+	
+	public void connect() throws SQLException{
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/dab-uspn", "root", "");
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField num_compte;
 
 	/**
 	 * Launch the application.
@@ -39,7 +70,11 @@ public class Solde extends JFrame {
 	 */
 	public Solde() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 497, 338);
+		setBounds(500, 200, 497, 419);
+		setTitle("Solde");
+		setResizable(false);
+		ImageIcon image = new ImageIcon("IUT.png");
+		this.setIconImage(image.getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,18 +120,78 @@ public class Solde extends JFrame {
 		JLabel txt_message = new JLabel("Le montant disponible sur votre compte s'élève à ");
 		txt_message.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_message.setFont(new Font("MV Boli", Font.PLAIN, 18));
-		txt_message.setBounds(10, 130, 461, 48);
+		txt_message.setBounds(10, 234, 461, 48);
 		contentPane.add(txt_message);
 		
-		JLabel txt_montant = new JLabel("100000");
+		JLabel txt_montant = new JLabel("");
 		txt_montant.setHorizontalAlignment(SwingConstants.RIGHT);
 		txt_montant.setFont(new Font("Arial Black", Font.PLAIN, 24));
-		txt_montant.setBounds(87, 176, 173, 43);
+		txt_montant.setBounds(113, 278, 173, 43);
 		contentPane.add(txt_montant);
 		
 		JLabel txt_euro = new JLabel("€");
 		txt_euro.setFont(new Font("Arial Black", Font.PLAIN, 24));
-		txt_euro.setBounds(270, 176, 59, 43);
+		txt_euro.setBounds(296, 278, 59, 43);
 		contentPane.add(txt_euro);
+		
+		JLabel txt_num_compte = new JLabel("Numéro de Compte : ");
+		txt_num_compte.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txt_num_compte.setBounds(51, 154, 140, 26);
+		contentPane.add(txt_num_compte);
+		
+		num_compte = new JTextField();
+		num_compte.setColumns(10);
+		num_compte.setBounds(195, 152, 248, 32);
+		contentPane.add(num_compte);
+		
+		JLabel lblNewLabel = new JLabel("Veuillez indiquer votre numéro de compte ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("MV Boli", Font.PLAIN, 15));
+		lblNewLabel.setBounds(20, 121, 454, 20);
+		contentPane.add(lblNewLabel);
+		
+		JButton btn_solde = new JButton("SOLDE");
+		btn_solde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				double solde=0;
+				
+				try {
+					connect();
+					String selsql = "SELECT Solde FROM compte WHERE num_compte = ?";
+					selpst = (PreparedStatement) con.prepareStatement(selsql);
+					selpst.setString(1, num_compte.getText() );
+					rs = selpst.executeQuery();
+					
+					if(rs.next()) {
+					 solde = rs.getDouble("Solde");
+						txt_montant.setText(""+solde);
+						num_compte.setText(" ");
+					}else {
+						txt_montant.setText(""+solde);
+						JOptionPane.showMessageDialog(null, "Compte introuvable");
+						num_compte.setText(" ");
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btn_solde.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_solde.setBounds(179, 200, 140, 32);
+		btn_solde.setFocusable(false);
+		contentPane.add(btn_solde);
+	}
+	
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+		
 	}
 }
